@@ -1,0 +1,44 @@
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+    <div>
+        <span class="badge text-bg-{{ effective_state.value == 'working' ? 'primary' : (effective_state.value == 'blocked' ? 'danger' : 'success') }} text-uppercase">{{ effective_state.value }}</span>
+        <span class="text-body-secondary small ms-2">
+            Last seen: {% if seconds_since_seen is null %}never{% else %}{{ seconds_since_seen }}s ago{% endif %}
+        </span>
+    </div>
+</div>
+
+<div class="row g-3">
+    {% for status in statuses %}
+        {% set tasks = grouped_tasks[status.value]|default([]) %}
+        <div class="col-12 col-lg-4">
+            <div class="card border-0 shadow-sm board-column h-100">
+                <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center pb-0">
+                    <h3 class="h6 text-uppercase mb-0">{{ status.value }}</h3>
+                    <span class="badge text-bg-light border">{{ tasks|length }}</span>
+                </div>
+                <div class="card-body d-flex flex-column gap-2">
+                    {% if tasks is empty %}
+                        <div class="small text-body-secondary">No tasks in this column.</div>
+                    {% else %}
+                        {% for task in tasks %}
+                            <button
+                                type="button"
+                                class="btn text-start task-card"
+                                data-action="task-modal#open"
+                                data-task-modal-url="{{ path('dashboard_task_show', {id: task.id}) }}"
+                            >
+                                <div class="fw-semibold">{{ task.title }}</div>
+                                <div class="small text-body-secondary mt-1">
+                                    Requested by {{ task.requestedBy }}
+                                </div>
+                                <div class="small text-body-secondary">
+                                    Updated {{ task.updatedAt|date('Y-m-d H:i') }}
+                                </div>
+                            </button>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

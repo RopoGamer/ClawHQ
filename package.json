@@ -1,0 +1,16 @@
+{
+  "name": "clawhq",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "sass assets/styles/app.scss assets/styles/app.css --no-source-map --style=compressed",
+    "watch:css": "sass --watch assets/styles/app.scss:assets/styles/app.css"
+  },
+  "dependencies": {
+    "@popperjs/core": "2.11.8",
+    "bootstrap": "5.3.8"
+  },
+  "devDependencies": {
+    "sass": "1.93.2"
+  }
+}

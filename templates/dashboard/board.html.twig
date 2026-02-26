@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClawHQ | {{ agent.displayName ?: agent.name }} Board{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 clawhq-hero">
+        <div>
+            <a href="{{ path('dashboard_agents') }}" class="link-secondary small text-decoration-none fw-semibold">&larr; Back to Desk</a>
+            <h1 class="h3 mb-1 mt-2" style="font-family: 'Comic Neue', 'Caveat', cursive; color: #4361ee;">{{ agent.displayName ?: agent.name }}'s Corkboard</h1>
+            <p class="text-body-secondary mb-0">Task assignments, updated every 5 seconds.</p>
+        </div>
+        <a href="{{ path('dashboard_agent_status', {id: agent.id}) }}" class="btn btn-outline-primary" style="background: white; border: 2px dashed #4361ee; box-shadow: 2px 2px 0 rgba(67, 97, 238, 0.2);">Check Status Log</a>
+    </div>
+
+    <div
+        data-controller="poll task-modal"
+        data-poll-url-value="{{ path('dashboard_agent_board_partial', {id: agent.id}) }}"
+        data-poll-interval-value="5000"
+    >
+        <div data-poll-target="container">
+            {% include 'dashboard/_board_columns.html.twig' with {
+                agent: agent,
+                effective_state: effective_state,
+                seconds_since_seen: seconds_since_seen,
+                grouped_tasks: grouped_tasks,
+                statuses: statuses
+            } %}
+        </div>
+
+        <div class="modal fade" tabindex="-1" data-task-modal-target="modal">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="h5 modal-title mb-0">Task details</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" data-task-modal-target="body">
+                        <p class="text-body-secondary mb-0">Loading task details...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

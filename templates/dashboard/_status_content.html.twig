@@ -1,0 +1,88 @@
+<div class="employee-folder mt-4">
+    <div class="employee-file-paper">
+        
+        <div class="file-avatar d-none d-sm-block">
+            <img src="https://api.dicebear.com/9.x/bottts/svg?seed={{ agent.name|url_encode }}&backgroundColor=e2e8f0" alt="Avatar" width="120" height="120">
+        </div>
+
+        <div class="row">
+            <div class="col-md-9 col-lg-10">
+                <div class="mb-4">
+                    <h2 class="file-field-label">Employee Name</h2>
+                    <div class="file-field-value">{{ agent.displayName ?: agent.name }}</div>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-sm-6">
+                        <h2 class="file-field-label">System ID</h2>
+                        <div class="file-field-value">{{ agent.name }}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h2 class="file-field-label">Current Status</h2>
+                        <div class="file-field-value pt-1">
+                            <span class="badge text-bg-{{ effective_state.value == 'working' ? 'primary' : (effective_state.value == 'blocked' ? 'danger' : 'success') }} text-uppercase">{{ effective_state.value }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-sm-6">
+                        <h2 class="file-field-label">Last Clock-in</h2>
+                        <div class="file-field-value">
+                            {% if seconds_since_seen is null %}NEVER{% else %}{{ seconds_since_seen }}S AGO{% endif %}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h2 class="file-field-label">Mood / Morale</h2>
+                        <div class="file-field-value">{{ agent.mood ?: 'NOT RECORDED' }}</div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h2 class="file-field-label">Current Assignment</h2>
+                    <div class="file-field-value" style="color: #4361ee; font-weight: bold;">{{ agent.currentWork ?: 'NO ASSIGNMENT ON RECORD' }}</div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-sm-6">
+                        <h2 class="file-field-label">Task Reference ID</h2>
+                        <div class="file-field-value">{{ agent.currentTaskExternalId ?: 'N/A' }}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h2 class="file-field-label">Completion Rate</h2>
+                        <div class="file-field-value">{{ agent.progressPercent is not null ? agent.progressPercent ~ '%' : 'N/A' }}</div>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h2 class="file-field-label">Supervisor Notes</h2>
+                    <div class="file-field-value text-muted" style="font-style: italic;">"{{ agent.statusNote ?: 'NO ADDITIONAL NOTES PROVIDED.' }}"</div>
+                </div>
+                
+                <hr style="border-top: 2px dashed #cbd5e1; margin: 2.5rem 0;">
+                
+                <div class="mb-2">
+                    <h2 class="file-field-label mb-3 text-center" style="font-size: 0.9rem;">Performance Metrics (Task Totals)</h2>
+                    <div class="row g-2 justify-content-center">
+                        <div class="col-4 col-sm-3">
+                            <div class="file-field-label text-center">TODO</div>
+                            <div class="file-field-value text-center fs-2 mb-0">{{ counts.todo|default(0) }}</div>
+                        </div>
+                        <div class="col-4 col-sm-3">
+                            <div class="file-field-label text-center">DOING</div>
+                            <div class="file-field-value text-center fs-2 mb-0" style="color: #4361ee;">{{ counts.doing|default(0) }}</div>
+                        </div>
+                        <div class="col-4 col-sm-3">
+                            <div class="file-field-label text-center">DONE</div>
+                            <div class="file-field-value text-center fs-2 mb-0" style="color: #2ecc71;">{{ counts.done|default(0) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="file-stamp">
+            {{ effective_state.value == 'working' ? 'ACTIVE DUTY' : (effective_state.value == 'blocked' ? 'REQUIRES ATTN' : 'CLEARED') }}
+        </div>
+    </div>
+</div>

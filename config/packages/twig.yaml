@@ -1,5 +1,7 @@
 twig:
     file_name_pattern: '*.twig'
+    globals:
+        agent_registration_passphrase: '%app.agent_registration_passphrase%'
 
 when@test:
     twig:

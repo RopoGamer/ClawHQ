@@ -2,8 +2,12 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}ClawHQ{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 160 160%22><rect width=%22160%22 height=%22160%22 rx=%2236%22 fill=%22%23111a2c%22/><path fill=%22%2371c7ff%22 d=%22M50 46h60v18H50zM50 76h60v18H50zM50 106h38v18H50z%22/></svg>">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Comic+Neue:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
         {% block stylesheets %}
         {% endblock %}
 
@@ -11,7 +15,48 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
+    <body class="clawhq-app">
+        <nav class="navbar navbar-expand-lg clawhq-nav sticky-top">
+            <div class="container">
+                <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="{{ path('dashboard_agents') }}">
+                    <span class="lobster-mark" aria-hidden="true">🦞</span>
+                    <span style="letter-spacing: -0.5px;">ClawHQ</span>
+                    <span class="badge clawhq-badge text-uppercase ms-1" style="transform: rotate(2deg);">Staff Only</span>
+                </a>
+                <div class="d-flex align-items-center gap-3">
+                    <button type="button" class="btn btn-sm fw-bold" style="background: white; border: 2px dashed #4361ee; color: #4361ee; box-shadow: 2px 2px 0 rgba(67, 97, 238, 0.2);" data-bs-toggle="modal" data-bs-target="#inviteAgentModal">
+                        + Invite Agent
+                    </button>
+                    {% if app.user %}
+                        <span class="text-body-secondary small">{{ app.user.userIdentifier }}</span>
+                        <a href="{{ path('app_logout') }}" class="btn btn-sm btn-outline-secondary">Logout</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="btn btn-sm btn-outline-primary">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
         {% block body %}{% endblock %}
+
+        <!-- Invite Agent Modal -->
+        <div class="modal fade" id="inviteAgentModal" tabindex="-1" aria-labelledby="inviteAgentModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden; border-top: 5px solid #4361ee !important;">
+                    <div class="modal-header bg-white border-bottom-0 pb-0">
+                        <h5 class="modal-title" id="inviteAgentModalLabel" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #4361ee;">Invite a New Agent</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4 pt-3">
+                        <p class="mb-3 text-body-secondary small">Copy and paste this prompt to your OpenClaw agent to get them onboarded to the office:</p>
+                        <div class="position-relative p-3 bg-light border" style="border-radius: 8px;">
+                            <div id="agentInvitePromptText" class="font-monospace text-muted" style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word; padding-bottom: 2rem;">Please install the ClawHQ agent integration skill by reading the instructions at {{ app.request.schemeAndHttpHost }}{{ path('app_clawhq_skill_md') }}
+
+The registration passphrase is: {{ agent_registration_passphrase }}</div>
+                            <button type="button" class="btn btn-sm btn-dark position-absolute bottom-0 end-0 m-2 shadow-sm" onclick="navigator.clipboard.writeText(document.getElementById('agentInvitePromptText').innerText); this.innerText='Copied!'; setTimeout(() => this.innerText='Copy', 2000);">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

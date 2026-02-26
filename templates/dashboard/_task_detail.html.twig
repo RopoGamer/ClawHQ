@@ -1,0 +1,57 @@
+<div class="d-flex flex-column gap-3">
+    <div>
+        <h3 class="h5 mb-1">{{ task.title }}</h3>
+        <div class="small text-body-secondary">
+            Requested by {{ task.requestedBy }} • Status {{ task.status.value }}
+        </div>
+    </div>
+
+    {% if task.description %}
+        <div>
+            <h4 class="h6 text-uppercase text-body-secondary">Description</h4>
+            <p class="mb-0">{{ task.description|nl2br }}</p>
+        </div>
+    {% endif %}
+
+    <div class="row g-3">
+        <div class="col-sm-6">
+            <h4 class="h6 text-uppercase text-body-secondary">Priority</h4>
+            <p class="mb-0">{{ task.priority ? task.priority.value : 'normal' }}</p>
+        </div>
+        <div class="col-sm-6">
+            <h4 class="h6 text-uppercase text-body-secondary">Due</h4>
+            <p class="mb-0">{{ task.dueAt ? task.dueAt|date('Y-m-d H:i') : 'none' }}</p>
+        </div>
+    </div>
+
+    <div>
+        <h4 class="h6 text-uppercase text-body-secondary">Labels</h4>
+        {% if task.labels is empty %}
+            <p class="mb-0 text-body-secondary">No labels</p>
+        {% else %}
+            <div class="d-flex flex-wrap gap-2">
+                {% for label in task.labels %}
+                    <span class="badge text-bg-light border">{{ label }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div>
+        <h4 class="h6 text-uppercase text-body-secondary">Notes</h4>
+        {% if notes is empty %}
+            <p class="mb-0 text-body-secondary">No notes yet.</p>
+        {% else %}
+            <div class="d-flex flex-column gap-2">
+                {% for note in notes %}
+                    <div class="note-card border rounded p-3 bg-white shadow-sm position-relative" style="border-left: 4px solid #3498db !important;">
+                        <div class="small text-body-secondary mb-2 fw-semibold border-bottom pb-1" style="color: #3498db !important;">
+                            <i class="me-1">📝</i> {{ note.type.value|upper }} • {{ note.createdAt|date('Y-m-d H:i:s') }}
+                        </div>
+                        <div style="font-family: 'Space Grotesk', sans-serif;">{{ note.note|nl2br }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>

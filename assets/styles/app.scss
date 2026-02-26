@@ -1,0 +1,493 @@
+$primary: #4361ee;
+$secondary: #7209b7;
+$success: #2ecc71;
+$danger: #e74c3c;
+$warning: #f1c40f;
+$info: #3498db;
+
+$body-bg: #f8f9fa;
+$body-color: #2b2d42;
+$font-family-sans-serif: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+$border-radius: 0.5rem;
+$border-color: #dee2e6;
+
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+// Custom playful office variables
+$desk-bg: #e2e8f0;
+$corkboard-bg: #d4a373;
+$sticky-yellow: #fff3cd;
+$sticky-pink: #f8d7da;
+$sticky-blue: #cce5ff;
+$sticky-green: #d4edda;
+$id-badge-bg: #ffffff;
+$manila-folder: #fdf5e6;
+
+body.clawhq-app {
+  background-color: $desk-bg;
+  background-image: 
+    radial-gradient(#cbd5e1 2px, transparent 2px),
+    radial-gradient(#cbd5e1 2px, transparent 2px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+  min-height: 100vh;
+}
+
+// Navbar styling (like a desk organizer / top bar)
+.clawhq-nav {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 3px solid $primary;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 0;
+
+  .navbar-brand {
+    font-weight: 700;
+    color: $primary;
+    
+    .lobster-mark {
+      font-size: 1.5rem;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+    }
+  }
+}
+
+.clawhq-badge {
+  background-color: $secondary;
+  color: white;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  letter-spacing: 0.5px;
+  padding: 0.35em 0.65em;
+  box-shadow: 0 2px 4px rgba($secondary, 0.3);
+}
+
+// Hero section (like a memo on the desk)
+.clawhq-hero {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: $border-radius;
+  border-left: 5px solid $warning;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 2rem !important;
+  position: relative;
+  
+  &::before {
+    content: "MEMO";
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: $danger;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    transform: rotate(3deg);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+}
+
+// Agent Cards (like ID Badges)
+.card-agent {
+  background: $id-badge-bg;
+  border: 1px solid $border-color;
+  border-top: 15px solid $primary;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  transition: all 0.2s ease-in-out;
+  
+  // Badge clip strap
+  &::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 28px;
+    background: rgba(226, 232, 240, 0.8);
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    backdrop-filter: blur(4px);
+    z-index: 2;
+  }
+
+  // Card hole punch
+  &::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 8px;
+    background: #cbd5e1;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.8);
+    z-index: 1;
+  }
+
+  &:hover {
+    transform: translateY(-5px) rotate(1deg);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .badge {
+    border-radius: 4px;
+    font-weight: 600;
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+  }
+}
+
+// Board Container (Corkboard feel)
+.board-column {
+  background-color: $corkboard-bg;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E"),
+    radial-gradient(rgba(0,0,0,0.04) 2px, transparent 2px),
+    radial-gradient(rgba(0,0,0,0.04) 2px, transparent 2px);
+  background-size: 100px 100px, 20px 20px, 20px 20px;
+  background-position: 0 0, 0 0, 10px 10px;
+  border: 14px solid #8b5a2b;
+  border-radius: 8px;
+  box-shadow: 
+    inset 0 0 20px rgba(0,0,0,0.4), 
+    inset 0 0 5px rgba(0,0,0,0.6),
+    0 10px 20px rgba(0,0,0,0.15);
+  position: relative;
+  
+  // Outer frame edge highlights
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    pointer-events: none;
+  }
+
+  // Inner frame shadow
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 3px 10px rgba(0,0,0,0.3);
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .card-header {
+    border-bottom: none !important;
+    background: transparent;
+    padding: 1rem 1rem 0.5rem 1rem;
+    position: relative;
+    z-index: 2;
+    
+    // Paper label for the column
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0.5rem;
+      left: 50%;
+      transform: translateX(-50%) rotate(-1deg);
+      width: 80%;
+      height: calc(100% - 0.5rem);
+      background: white;
+      box-shadow: 1px 2px 5px rgba(0,0,0,0.1);
+      z-index: -1;
+      border-radius: 2px;
+    }
+    
+    // Thumbtack for the label
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #f1c40f, #f39c12);
+      box-shadow: inset -1px -1px 2px rgba(0,0,0,0.3), 1px 2px 3px rgba(0,0,0,0.2);
+    }
+    
+    h3 {
+      font-weight: 800;
+      color: #3e2723;
+      letter-spacing: 0.5px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      text-align: center;
+      width: 100%;
+      margin-top: 0.25rem;
+    }
+    
+    .badge {
+      position: absolute;
+      right: 1.5rem;
+      top: 1rem;
+      background: #e74c3c !important;
+      color: white;
+      border: 2px solid white !important;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      box-shadow: 0 2px 4px rgba(0,0,0, 0.2);
+      transform: rotate(10deg);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  }
+  
+  .card-body {
+    padding: 1rem;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+  }
+}
+
+// Task Cards (Sticky Notes)
+.task-card {
+  background-color: $sticky-yellow;
+  border: none !important;
+  border-radius: 2px 15px 15px 20px;
+  padding: 1.25rem;
+  box-shadow: 2px 4px 6px rgba(0,0,0,0.1), inset 0 0 20px rgba(255,255,255,0.5);
+  transition: all 0.2s ease;
+  position: relative;
+  white-space: normal;
+  text-align: left;
+  display: block;
+  width: 100%;
+  color: #333;
+  margin-bottom: 0.75rem;
+  
+  // Push Pin
+  &::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ff6b6b, #c0392b);
+    box-shadow: 
+      inset -2px -2px 4px rgba(0,0,0,0.3),
+      1px 3px 4px rgba(0,0,0,0.2),
+      0 0 0 1px rgba(0,0,0,0.05);
+    z-index: 5;
+  }
+
+  // Folded corner effect
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-width: 0 0 15px 15px;
+    border-style: solid;
+    border-color: transparent transparent transparent rgba(0,0,0,0.05);
+    display: block;
+    width: 0;
+  }
+
+  &:hover {
+    transform: scale(1.02) rotate(-1deg);
+    box-shadow: 3px 6px 12px rgba(0,0,0,0.15), inset 0 0 20px rgba(255,255,255,0.5);
+    z-index: 10;
+  }
+
+  .fw-semibold {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.25rem;
+    color: #1a1a1a;
+  }
+
+  .text-body-secondary {
+    color: rgba(0,0,0,0.6) !important;
+    font-size: 0.8rem;
+  }
+}
+
+// Randomize sticky note colors, pins, and rotations for a natural feel
+.board-column:nth-child(1) .task-card:nth-child(even) { background-color: $sticky-pink; transform: rotate(1deg); }
+.board-column:nth-child(1) .task-card:nth-child(even)::before { background: radial-gradient(circle at 30% 30%, #3498db, #2980b9); }
+.board-column:nth-child(1) .task-card:nth-child(odd) { background-color: $sticky-yellow; transform: rotate(-1deg); }
+.board-column:nth-child(2) .task-card:nth-child(even) { background-color: $sticky-blue; transform: rotate(-1.5deg); }
+.board-column:nth-child(2) .task-card:nth-child(even)::before { background: radial-gradient(circle at 30% 30%, #2ecc71, #27ae60); }
+.board-column:nth-child(2) .task-card:nth-child(odd) { background-color: $sticky-green; transform: rotate(1.5deg); }
+.board-column:nth-child(2) .task-card:nth-child(odd)::before { background: radial-gradient(circle at 30% 30%, #9b59b6, #8e44ad); }
+.board-column:nth-child(3) .task-card:nth-child(even) { background-color: $sticky-yellow; transform: rotate(1deg); }
+.board-column:nth-child(3) .task-card:nth-child(even)::before { background: radial-gradient(circle at 30% 30%, #e67e22, #d35400); }
+.board-column:nth-child(3) .task-card:nth-child(odd) { background-color: $sticky-pink; transform: rotate(-1deg); }
+
+.board-column .task-card:hover {
+  transform: scale(1.03) translateY(-2px);
+}
+
+// Empty state
+.card-body > .small.text-body-secondary {
+  text-align: center;
+  padding: 2rem;
+  border: 2px dashed rgba(0,0,0,0.1);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.5);
+  font-style: italic;
+}
+
+// Typography tweaks
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+  box-shadow: 0 2px 4px rgba($primary, 0.2);
+  font-weight: 600;
+  
+  &:hover {
+    background-color: darken($primary, 5%);
+    border-color: darken($primary, 5%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba($primary, 0.3);
+  }
+}
+
+.btn-outline-secondary {
+  background: white;
+  border-color: #ced4da;
+  color: #495057;
+  font-weight: 600;
+  
+  &:hover {
+    background: #f8f9fa;
+    border-color: #adb5bd;
+    color: #212529;
+  }
+}
+
+// Employee File Folder
+.employee-folder {
+  background: $manila-folder;
+  border-radius: 4px 15px 4px 4px;
+  padding: 1.5rem 1rem 1rem 1rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  
+  // Folder Tab
+  &::before {
+    content: "EMPLOYEE FILE";
+    position: absolute;
+    top: -25px;
+    left: 20px;
+    background: darken($manila-folder, 5%);
+    padding: 6px 25px;
+    border-radius: 10px 10px 0 0;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #8b7355;
+    letter-spacing: 1px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+  }
+
+  // The inner paper
+  .employee-file-paper {
+    background: #ffffff;
+    border-radius: 2px;
+    padding: 2.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    background-image: repeating-linear-gradient(transparent, transparent 31px, #e2e8f0 31px, #e2e8f0 32px);
+    background-position: 0 40px;
+    line-height: 32px;
+    position: relative;
+    border-left: 2px solid #e74c3c;
+    overflow: hidden;
+    
+    // Typewriter font for content
+    .file-field-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-bottom: 0;
+      letter-spacing: 1px;
+      line-height: 1.5;
+    }
+    
+    .file-field-value {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.15rem;
+      color: #1e293b;
+      margin-bottom: 0;
+      font-weight: 600;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .file-avatar {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      border: 4px solid #cbd5e1;
+      padding: 6px;
+      background: white;
+      transform: rotate(4deg);
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.15);
+      z-index: 5;
+      
+      // photo pin
+      &::before {
+        content: "";
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #e74c3c;
+        box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 1px 2px 4px rgba(0,0,0,0.2);
+        z-index: 6;
+      }
+    }
+    
+    .file-stamp {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      color: #e74c3c;
+      border: 4px solid #e74c3c;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 900;
+      font-size: 1.5rem;
+      transform: rotate(-15deg);
+      opacity: 0.85;
+      letter-spacing: 3px;
+      pointer-events: none;
+      z-index: 5;
+    }
+  }
+}

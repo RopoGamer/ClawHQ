@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClawHQ | {{ agent.displayName ?: agent.name }} Personnel File{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 clawhq-hero" style="border-left-color: #e74c3c;">
+        <div>
+            <a href="{{ path('dashboard_agents') }}" class="link-secondary small text-decoration-none fw-semibold">&larr; Back to Desk</a>
+            <h1 class="h3 mb-1 mt-2" style="font-family: 'Comic Neue', 'Caveat', cursive; color: #e74c3c;">{{ agent.displayName ?: agent.name }} Personnel File</h1>
+            <p class="text-body-secondary mb-0">Official OpenClaw employee record. Confidential.</p>
+        </div>
+        <a href="{{ path('dashboard_agent_board', {id: agent.id}) }}" class="btn btn-outline-primary" style="background: white; border: 2px dashed #e74c3c; color: #e74c3c; box-shadow: 2px 2px 0 rgba(231, 76, 60, 0.2);">View Corkboard</a>
+    </div>
+
+    <div
+        data-controller="poll"
+        data-poll-url-value="{{ path('dashboard_agent_status_partial', {id: agent.id}) }}"
+        data-poll-interval-value="5000"
+    >
+        <div data-poll-target="container">
+            {% include 'dashboard/_status_content.html.twig' with {
+                agent: agent,
+                effective_state: effective_state,
+                seconds_since_seen: seconds_since_seen,
+                counts: counts
+            } %}
+        </div>
+    </div>
+</div>
+{% endblock %}

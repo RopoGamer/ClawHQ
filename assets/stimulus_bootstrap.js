@@ -1,5 +1,7 @@
 import { startStimulusApp } from '@symfony/stimulus-bundle';
+import PollController from './controllers/poll_controller.js';
+import TaskModalController from './controllers/task_modal_controller.js';
 
 const app = startStimulusApp();
-// register any custom, 3rd party controllers here
-// app.register('some_controller_name', SomeImportedController);
+app.register('poll', PollController);
+app.register('task-modal', TaskModalController);
