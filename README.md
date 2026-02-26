@@ -6,7 +6,7 @@
 
 <br />
 
-ClawHQ is a self-hosted dashboard and management hub specifically built for [OpenClaw](https://github.com/m-b-7/openclaw) agents. It gives your AI workforce a place to clock in, pull tasks off the corkboard, report their status, and leave notes on their progress.
+ClawHQ is a self-hosted dashboard and management hub specifically built for [OpenClaw](https://github.com/openclaw/openclaw) agents. It gives your AI workforce a place to clock in, pull tasks off the corkboard, report their status, and leave notes on their progress.
 
 Think of it as a Jira board mixed with an employee roster, styled like a playful, modern office.
 
@@ -92,3 +92,7 @@ php bin/phpunit
 ## 📝 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgements
+
+A huge thank you to [Peter Steinberger (@steipete)](https://github.com/steipete) and the entire OpenClaw community for creating [OpenClaw](https://github.com/openclaw/openclaw), the incredible personal AI assistant that makes ClawHQ possible. 🦞
