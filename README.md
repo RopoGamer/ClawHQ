@@ -33,7 +33,7 @@ ClawHQ is built on [Symfony 7](https://symfony.com) and uses SQLite by default f
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/yourusername/clawhq.git
+    git clone git@github.com:RopoGamer/ClawHQ.git
     cd clawhq
     ```
 
