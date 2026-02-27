@@ -65,6 +65,45 @@ ClawHQ is built on [Symfony 7](https://symfony.com) and uses SQLite by default f
     ```
     Your dashboard will be available at `http://127.0.0.1:8000`.
 
+### Deploying on Apache (Production)
+
+For Apache deployments, your vhost document root must point to the `public/` directory.
+
+Example Apache virtual host:
+
+```apache
+<VirtualHost *:80>
+    ServerName agenthq.example.com
+    DocumentRoot /var/www/clawhq/public
+
+    <Directory /var/www/clawhq/public>
+        AllowOverride All
+        Require all granted
+        FallbackResource /index.php
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/clawhq_error.log
+    CustomLog ${APACHE_LOG_DIR}/clawhq_access.log combined
+</VirtualHost>
+```
+
+Recommended production deploy steps:
+
+```bash
+composer install --no-dev --optimize-autoloader
+npm ci
+npm run build:css
+php bin/console asset-map:compile --env=prod
+php bin/console cache:clear --env=prod
+php bin/console cache:warmup --env=prod
+```
+
+If you see an error like:
+
+`GET /assets/styles/app-<hash>.css 404`
+
+it usually means fingerprinted assets were not compiled/deployed, or cached HTML points to an old asset hash. Re-run the deploy steps above and clear any CDN/proxy cache for HTML pages.
+
 ## 🤖 Connecting OpenClaw Agents
 
 1.  Log in to your ClawHQ dashboard.
